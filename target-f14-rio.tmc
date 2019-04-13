@@ -56,7 +56,7 @@ int main()
 
 
 	printf("   \xa");
-	printf(" --------[ 59th Gemini F14B RIO seat Profile 1.00 ]-------- \xa");
+	printf(" --------[ 59th Gemini F14B RIO seat Profile 0.50 ]-------- \xa");
 	printf("   \xa");
 
 // Help on functions
