@@ -112,9 +112,9 @@ int main()
 // Eject = CHAIN(PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT^LED0),PULSE+L_CTL+USB[0x08]); //Chain needed for the ejection sequence on button "LDGH"
 
 //MIC
-	MapKeyIOUMD(&Throttle, MSU, 0, L_CTL+L_ALT+'`', 0, L_CTL+L_ALT+'`', 0, L_CTL+L_ALT+'`');
+	MapKeyIOUMD(&Throttle, MSU, 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55]);
 	MapKeyIOUMD(&Throttle, MSR, 0, L_SHIFT+'k', 0, L_SHIFT+'k', 0, L_SHIFT+'k');
-	MapKeyIOUMD(&Throttle, MSD, 0, '`', 0, '`', 0, '`');
+	MapKeyIOUMD(&Throttle, MSD, 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55]);
 	MapKeyIOUMD(&Throttle, MSL, 0, R_ALT+'\\', 0, R_ALT+'\\', 0, R_ALT+'\\');
 //	MapKeyIO(&Throttle,MSP,R_ALT+USB[0x35],R_CTL+USB[0x57]); // Radio 2 Simple  Radio, FOLLOW LAUNCHED usb code 'Num +'
 
