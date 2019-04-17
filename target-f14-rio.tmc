@@ -56,7 +56,7 @@ int main()
 
 
 	printf("   \xa");
-	printf(" --------[ 59th Gemini F14B RIO seat Profile 0.50 ]-------- \xa");
+	printf(" --------[ 59th Gemini F14B RIO seat Profile 0.5.1 ]-------- \xa");
 	printf("   \xa");
 
 // Help on functions
@@ -129,8 +129,9 @@ int main()
 //	MapKeyIO(&Throttle,BSM,0,PULSE+R_CTL+R_SHIFT+USB[0x06]);//FREE usb code '', STROBE OFF usb code 'c'
 
 //China hat
-	MapKeyIOUMD(&Throttle, CHF, 0, 0, 0, 0, 'p', 'f');
-	MapKeyIOUMD(&Throttle, CHB, 0, 0, 0, 0, 0, L_ALT+'f');
+// MapKeyIOUMD (<controller>, <button>, <IU>,<OU>,<IM>,<OM>,<ID>,<OD>);
+	MapKeyIOUMD(&Throttle, CHF, L_SHIFT+UARROW, 0, L_SHIFT+UARROW, 0, 'p', 'f');
+	MapKeyIOUMD(&Throttle, CHB, L_SHIFT+DARROW, 0, L_SHIFT+DARROW, 0, 0, L_ALT+'f');
 
 //Pinkie
 // rien puisque utilisés pour les layers
