@@ -70,8 +70,8 @@ int main()
 //////////////////////////////
 
 // gachette
-	MapKeyIOUMD(&Joystick, TG1, 0, 0, 's', HOME, R_SHIFT+ENT, R_CTL+'h');
-	MapKeyIOUMD(&Joystick, TG2, 0, 0, 0, PGUP, 0, R_CTL+'f');
+	MapKeyIOUMD(&Joystick, TG1, 0, 0, 's', L_CTL+HOME, R_SHIFT+ENT, R_CTL+'h');
+	MapKeyIOUMD(&Joystick, TG2, 0, 0, 0, ENT, 0, R_CTL+'f');
 
 // Master mode Control button
 	MapKeyIOUMD(&Joystick, S1, 0, 0, 0, L_ALT+SPC, R_CTL+R_ALT+'p', L_CTL+L_ALT+'p');
@@ -113,9 +113,9 @@ int main()
 
 //MIC
 	MapKeyIOUMD(&Throttle, MSU, 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55]);
-	MapKeyIOUMD(&Throttle, MSR, 0, L_SHIFT+'k', 0, L_SHIFT+'k', 0, L_SHIFT+'k');
+	MapKeyIOUMD(&Throttle, MSR, 0, L_CTL+'k', 0, L_CTL+'k', 0, L_CTL+'k');
 	MapKeyIOUMD(&Throttle, MSD, 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55]);
-	MapKeyIOUMD(&Throttle, MSL, 0, R_ALT+'\\', 0, R_ALT+'\\', 0, R_ALT+'\\');
+	MapKeyIOUMD(&Throttle, MSL, 0, 0, 0, 0, 0, 0);
 //	MapKeyIO(&Throttle,MSP,R_ALT+USB[0x35],R_CTL+USB[0x57]); // Radio 2 Simple  Radio, FOLLOW LAUNCHED usb code 'Num +'
 
 //speedbrake
@@ -134,7 +134,7 @@ int main()
 	MapKeyIOUMD(&Throttle, CHB, L_SHIFT+DARROW, 0, L_SHIFT+DARROW, 0, 0, L_ALT+'f');
 
 //Pinkie
-// rien puisque utilisÃ©s pour les layers
+// rien puisque utilisés pour les layers
 
 
 //Left ap button
@@ -143,7 +143,8 @@ int main()
 //Coolie
 	MapKeyIOUMD(&Throttle, CSU, 0, '[', 0, '[', 0, '[');
 	MapKeyIOUMD(&Throttle, CSD, 0, ']', 0, ']', 0, ']');
-	MapKeyIOUMD(&Throttle, CSR, 0, R_SHIFT+'k', 0, R_SHIFT+'k', 0, R_SHIFT+'k');
+	MapKeyIOUMD(&Throttle, CSR, L_SHIFT+'k', R_SHIFT+'k', L_SHIFT+'k', R_SHIFT+'k', L_SHIFT+'k', R_SHIFT+'k');
+	MapKeyIOUMD(&Throttle, CSL, R_CTL+USB[0x31], 0, R_CTL+USB[0x31], 0, R_CTL+USB[0x31], 0);
 //	MapKeyIO(&Throttle,CSL,PULSE+USB[0x3C],CHAIN(R_SHIFT+USB[0x08],R_SHIFT+USB[0x34],R_SHIFT+USB[0x33],R_SHIFT+USB[0x30])); //view flyby usb code 'F3', MDI-MPCD LIGHT + usb code 'e' ''' ';' ']'
 
 //Engine Fuel Flow left
@@ -184,7 +185,7 @@ int main()
 //	MapKeyIO(&Throttle,RDRNRM,0,CHAIN(PULSE+L_SHIFT+USB[0x0B],D(),PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT-LED4))); //HOOK UP usb code 'h' LED4 OFF
 
 // AP switch left
-//	MapKeyIO(&Throttle,APENG,TEMPO(USB[0x12],R_SHIFT+USB[0x36],500),TEMPO(CHAIN(DOWN+L_CTL,DOWN+USB[0x0D],D(200),UP+USB[0x0D],D(50),UP+L_CTL),R_SHIFT+USB[0x38],500));
+	MapKey(&Throttle,APENG,L_CTL+HOME);
 //WING FOLD PULL/STOW usb code 'o' -LONG PRESS: STARTER LEFT usb code ',', LAUNCH BAR UP/DOWN usb code 'j' -LONG PRESS: STARTER RIGHT usb code '/'
 
 // Right AP switch
