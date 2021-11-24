@@ -1,0 +1,206 @@
+include "target.tmh" //default Thrustmaster function
+
+// int Eject ;
+// int Jettison ;
+int Chainled ;
+
+int main() 
+{ 
+
+	Configure(&HCougar, MODE_EXCLUDED);
+	Configure(&T16000, MODE_EXCLUDED);
+	Configure(&T16000L, MODE_EXCLUDED);
+	Configure(&LMFD, MODE_EXCLUDED);
+	Configure(&RMFD, MODE_EXCLUDED);
+	Configure(&TFRPRudder, MODE_EXCLUDED);
+	Configure(&TWCSThrottle, MODE_EXCLUDED);
+	
+	if(Init(&EventHandle)) return 1; //event handler
+ 
+//shift button and layer switch
+	SetShiftButton(&Joystick, S4, &Throttle, PSF, PSB, 0);
+
+//set pulse and delay lengths
+	SetKBRate(50,100);
+	SetKBLayout(KB_ENG);
+
+//LED init state
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, 214)); //set Throttle backlight power to 5/6
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED0)); //set backlight OFF
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1)); //set LED 1 OFF
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2)); //set LED 2 OFF
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3)); //set LED 3 OFF
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4)); //set LED 4 OFF
+	ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5)); //set LED 5 OFF
+
+/////////////////////////////////////////
+//Joystick and Throttle Axis Definitions/
+/////////////////////////////////////////
+// Joystick Axises
+	MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Joystick, JOYX, 0, 0, 0, 0, 0);
+	MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Joystick, JOYY, 0, 0, 0, 0, 0);
+
+// Throttle Axises
+	MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Throttle, SCX, 0, 0, 0, 0, 0);
+	MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Throttle, SCY, 0, 0, 0, 0, 0);
+	MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 0, 0);
+	MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Throttle, THR_LEFT, 0, 0, 0, 0, 0);
+	MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+	SetSCurve(&Throttle, THR_FC, 0, 0, 0, 0, 0);
+
+
+	printf("   \xa");
+	printf(" --------[ 59th Gemini F14B RIO seat Profile 0.5.1 ]-------- \xa");
+	printf("   \xa");
+
+// Help on functions
+// MapKeyIOUMD (<controller>, <button>, <IU>,<OU>,<IM>,<OM>,<ID>,<OD>);
+// MapKeyIO (<controller>, <button>, <IUMD>,<OUMD>);
+// MapKey (<controller>, <button>, <IOUMD>);
+
+
+//////////////////////////////
+//Joystick Button Definitions/
+//////////////////////////////
+
+// gachette
+	MapKeyIOUMD(&Joystick, TG1, 0, 0, 's', HOME, R_SHIFT+ENT, R_CTL+'h');
+	MapKeyIOUMD(&Joystick, TG2, 0, 0, 0, PGUP, 0, R_CTL+'f');
+
+// Master mode Control button
+	MapKeyIOUMD(&Joystick, S1, 0, 0, 0, L_ALT+SPC, R_CTL+R_ALT+'p', L_CTL+L_ALT+'p');
+
+// Weapons release button
+	MapKeyIOUMD(&Joystick, S2, 0, SPC, 0, SPC, 0, SPC);
+
+// Nosewheel steering button
+	MapKeyIOUMD(&Joystick, S3, 0, 0, 0, 'i', 0, L_ALT+'p');
+
+//trim hat
+	MapKeyIOUMD(&Joystick, H1U, 0, 0, 0, 0, 0, L_CTL+L_ALT+UARROW);
+	MapKeyIOUMD(&Joystick, H1D, 0, 0, 0, 0, 0, L_CTL+L_ALT+DARROW);
+	MapKeyIOUMD(&Joystick, H1L, 0, 0, 0, 0, 0, L_CTL+L_ALT+LARROW);
+	MapKeyIOUMD(&Joystick, H1R, 0, 0, 0, 0, 0, L_CTL+L_ALT+RARROW);
+
+//tms
+	MapKeyIOUMD(&Joystick, H2U, 0, 0, L_SHIFT+'q', L_ALT+'s', 0, L_CTL+'p');
+	MapKeyIOUMD(&Joystick, H2R, 0, 0, L_SHIFT+'a', L_ALT+'d', 0, L_CTL+'o');
+	MapKeyIOUMD(&Joystick, H2D, 0, 0, L_CTL+'q', L_ALT+'x', 0, R_CTL+'p');
+	MapKeyIOUMD(&Joystick, H2L, 0, 0, L_CTL+'a', L_ALT+'a', 0, L_CTL+'u');
+
+//dms
+	MapKeyIOUMD(&Joystick, H3U, 0, 0, 0, L_CTL+UARROW, 0, L_ALT+UARROW);
+	MapKeyIOUMD(&Joystick, H3R, 0, 0, 0, L_CTL+RARROW, 0, L_ALT+RARROW);
+	MapKeyIOUMD(&Joystick, H3D, 0, 0, 0, L_CTL+DARROW, 0, L_ALT+DARROW);
+	MapKeyIOUMD(&Joystick, H3L, 0, 0, 0, L_CTL+LARROW, 0, L_ALT+LARROW);
+
+//cms
+
+
+//////////////////////////////
+//Throttle Button Definitions/
+//////////////////////////////
+
+//Functions definitions
+
+// Eject = CHAIN(PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT^LED0),PULSE+L_CTL+USB[0x08]); //Chain needed for the ejection sequence on button "LDGH"
+
+//MIC
+	MapKeyIOUMD(&Throttle, MSU, 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55], 0, L_CTL+USB[0x55]);
+	MapKeyIOUMD(&Throttle, MSR, 0, L_SHIFT+'k', 0, L_SHIFT+'k', 0, L_SHIFT+'k');
+	MapKeyIOUMD(&Throttle, MSD, 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55], 0, L_SHIFT+USB[0x55]);
+	MapKeyIOUMD(&Throttle, MSL, 0, R_ALT+'\\', 0, R_ALT+'\\', 0, R_ALT+'\\');
+//	MapKeyIO(&Throttle,MSP,R_ALT+USB[0x35],R_CTL+USB[0x57]); // Radio 2 Simple  Radio, FOLLOW LAUNCHED usb code 'Num +'
+
+//speedbrake
+	MapKeyIOUMD(&Throttle, SPDB, DEL, INS, DEL, INS, DEL, INS);
+//	MapKeyIO(&Throttle,SPDM,0,LED(&Throttle,LED_ONOFF,LED_CURRENT-LED3)); // Speedbrake middle LED3 OFF
+//	MapKeyIO(&Throttle,SPDF,L_ALT+L_CTL+USB[0x04],CHAIN(L_CTL+USB[0x05],LED(&Throttle,LED_ONOFF,LED_CURRENT+LED3))); //JETTISON CTR/LIN/RIN usb code 'a', RETRACT AIRBRAKE usb code 'b' LED3 ON
+
+//Boat switch
+	MapKeyIOUMD(&Throttle, BSF, 0, 0, 0, 0, 0, PULSE+R_ALT+UARROW);
+	MapKeyIOUMD(&Throttle, BSB, 0, 0, 0, 0, 0, PULSE+R_ALT+DARROW);
+//	MapKeyIO(&Throttle,BSM,0,PULSE+R_CTL+R_SHIFT+USB[0x06]);//FREE usb code '', STROBE OFF usb code 'c'
+
+//China hat
+// MapKeyIOUMD (<controller>, <button>, <IU>,<OU>,<IM>,<OM>,<ID>,<OD>);
+	MapKeyIOUMD(&Throttle, CHF, L_SHIFT+UARROW, 0, L_SHIFT+UARROW, 0, 'p', 'f');
+	MapKeyIOUMD(&Throttle, CHB, L_SHIFT+DARROW, 0, L_SHIFT+DARROW, 0, 0, L_ALT+'f');
+
+//Pinkie
+// rien puisque utilisés pour les layers
+
+
+//Left ap button
+	MapKeyIOUMD(&Throttle, LTB, 0, 0, 0, 0, 0, L_ALT+'p');
+
+//Coolie
+	MapKeyIOUMD(&Throttle, CSU, 0, '[', 0, '[', 0, '[');
+	MapKeyIOUMD(&Throttle, CSD, 0, ']', 0, ']', 0, ']');
+	MapKeyIOUMD(&Throttle, CSR, 0, R_SHIFT+'k', 0, R_SHIFT+'k', 0, R_SHIFT+'k');
+//	MapKeyIO(&Throttle,CSL,PULSE+USB[0x3C],CHAIN(R_SHIFT+USB[0x08],R_SHIFT+USB[0x34],R_SHIFT+USB[0x33],R_SHIFT+USB[0x30])); //view flyby usb code 'F3', MDI-MPCD LIGHT + usb code 'e' ''' ';' ']'
+
+//Engine Fuel Flow left
+//	MapKeyIO(&Throttle,EFLNORM,0,PULSE+L_ALT+L_CTL+USB[0x08]); //DISPENSER ON usb code 'e'
+//	MapKeyIO(&Throttle,EFLOVER,0,PULSE+L_CTL+L_SHIFT+USB[0x08]); //DISPENSER OFF usb code 'e'
+
+//Engine Fuel Flow right
+//	MapKeyIO(&Throttle,EFRNORM,0,DX17); // FUEL PROBE ingame bind
+
+// Engine Operate right
+//	MapKeyIO(&Throttle,EORIGN,R_CTL+USB[0x12],L_CTL+USB[0x33]); //WING FOLD RIGHT usb code 'o' FCS RESET usb code ';' 
+	MapKeyIOUMD(&Throttle, EORNORM, 0, 0, 0, 0, 0, PULSE+L_ALT+'h');
+	MapKeyIOUMD(&Throttle, EORMOTOR, 0, 0, 0, 0, 0, PULSE+L_ALT+'n');
+
+// Engine operate left
+//	MapKeyIO(&Throttle,EOLIGN,R_SHIFT+USB[0x12],USB[0x1C]); //WING FOLD LEFT usb code 'o', FCS BIT usb code 'y'
+//	MapKeyIO(&Throttle,EOLNORM,0,CHAIN(PULSE+R_SHIFT+USB[0x05],D(),LED(&Throttle,LED_ONOFF,LED_CURRENT+LED1))); //BATTERY usb code 'b' LED1 ON
+//	MapKeyIO(&Throttle,EOLMOTOR,0,CHAIN(PULSE+R_CTL+USB[0x05],D(),LED(&Throttle,LED_ONOFF,LED_CURRENT-LED1))); //BATTERY OFF usb code 'b' LED1 OFF
+
+// APU
+//	MapKeyIO(&Throttle,APUON,0,DX20); //APU ON/OFF ingame bind
+
+// L/G Warn Silence button
+//	MapKeyIO(&Throttle,LDGH,L_CTL+L_SHIFT+USB[0x04],USB[0x11]); //EMER JETT usb code 'a', RESET MASTER WARNING usb code 'n'
+
+// Flap switch
+	MapKeyIOUMD(&Throttle, FLAPU, 0, PULSE+L_CTL+KP3, 0, PULSE+L_CTL+KP3, 0, PULSE+L_CTL+KP3);
+	MapKeyIOUMD(&Throttle, FLAPD, 0, PULSE+L_CTL+KP1, 0, PULSE+L_CTL+KP1, 0, PULSE+L_CTL+KP1);
+	MapKeyIOUMD(&Throttle, FLAPM, 0, PULSE+L_CTL+KP2, 0, PULSE+L_CTL+KP2, 0, PULSE+L_CTL+KP2);
+
+//EAC switch
+//	MapKeyIO(&Throttle,EACON,0,CHAIN(PULSE+L_CTL+USB[0x0A],D(),PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT-LED2))); //GEAR UP usb code 'g' LED2 OFF
+//	MapKeyIO(&Throttle,EACOFF,0,CHAIN(PULSE+L_SHIFT+USB[0x0A],D(),PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT+LED2))); //GEAR DOWN usb code 'g' LED2 ON
+
+
+//RDR Alti switch
+//	MapKeyIO(&Throttle,RDRDIS,0,CHAIN(PULSE+L_CTL+USB[0x0B],D(),PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT+LED4))); //HOOK DOWN usb code 'h' LED4 ON
+//	MapKeyIO(&Throttle,RDRNRM,0,CHAIN(PULSE+L_SHIFT+USB[0x0B],D(),PULSE+LED(&Throttle,LED_ONOFF,LED_CURRENT-LED4))); //HOOK UP usb code 'h' LED4 OFF
+
+// AP switch left
+//	MapKeyIO(&Throttle,APENG,TEMPO(USB[0x12],R_SHIFT+USB[0x36],500),TEMPO(CHAIN(DOWN+L_CTL,DOWN+USB[0x0D],D(200),UP+USB[0x0D],D(50),UP+L_CTL),R_SHIFT+USB[0x38],500));
+//WING FOLD PULL/STOW usb code 'o' -LONG PRESS: STARTER LEFT usb code ',', LAUNCH BAR UP/DOWN usb code 'j' -LONG PRESS: STARTER RIGHT usb code '/'
+
+// Right AP switch
+	MapKeyIOUMD(&Throttle, APPAT, 0, 0, 0, 0, 0, PULSE+L_CTL+'t');
+	MapKeyIOUMD(&Throttle, APALT, 0, 0, 0, 0, 0, PULSE+L_CTL+'b');
+	MapKeyIOUMD(&Throttle, APAH, 0, 0, 0, 0, 0, PULSE+L_CTL+'g');
+
+// Idle throttle
+//	MapKey(&Throttle,IDLELON,CHAIN(PULSE+R_ALT+USB[0x4D],D(),LED(&Throttle,LED_ONOFF,LED_CURRENT-LED0))); //IDLE->OFF LEFT ENGINE STOP BACKLIGHT OFF
+//	MapKey(&Throttle,IDLERON,CHAIN(PULSE+R_SHIFT+USB[0x4D],D(),LED(&Throttle,LED_ONOFF,LED_CURRENT-LED0))); //IDLE->OFF RIGHT ENGINE STOP BACKLIGHT OFF
+//	MapKey(&Throttle,IDLELOFF,CHAIN(LED(&Throttle,LED_ONOFF,LED_CURRENT+LED0),D(),PULSE+R_ALT+USB[0x4A])); //OFF->IDLE  LEFT ENGINE START BACKLIGHT ON
+//	MapKey(&Throttle,IDLEROFF,CHAIN(LED(&Throttle,LED_ONOFF,LED_CURRENT+LED0),D(),PULSE+R_SHIFT+USB[0x4A])); //OFF->IDLE  RIGHT ENGINE START BACKLIGHT ON
+
+} 
+ 
+int EventHandle(int type, alias o, int x) 
+{ 
+DefaultMapping(&o, x); 
+}
